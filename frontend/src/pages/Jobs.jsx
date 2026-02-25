@@ -6,7 +6,7 @@ import helper from "../assets/helper.webp";
 import HouseKeeping from "../assets/house keeping.webp";
 import LaserOperator from "../assets/laser-operator.webp";
 import OxygenOperator from "../assets/oxygen-operator.webp";
-import PTWOperator from "../assets/ptw-operator.jpg";
+import PTWOperator from "../assets/PTW-operator.jpg";
 import ShearingOperator from "../assets/shearing-operator.jpg";
 import EOTOperator from "../assets/eot-operator.jpg";
 
