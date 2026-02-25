@@ -4,6 +4,12 @@ import fitter from "../assets/fitter.png";
 import fabricator from "../assets/fabricator.jpg";
 import helper from "../assets/helper.webp";
 import HouseKeeping from "../assets/house keeping.webp";
+import LaserOperator from "../assets/laser-operator.webp";
+import OxygenOperator from "../assets/oxygen-operator.webp";
+import PTWOperator from "../assets/ptw-operator.jpg";
+import ShearingOperator from "../assets/shearing-operator.jpg";
+import EOTOperator from "../assets/eot-operator.jpg";
+
 import { Link } from "react-router-dom";
 
 const JOBS = [
@@ -24,6 +30,36 @@ const JOBS = [
     slug: "fabricator",
     desc: "Metal fabricator for bespoke structures and parts.",
     img: fabricator,
+  },
+  {
+    title: "EOT Operator",
+    slug: "eot-operator",
+    desc: "Operator for electric overhead traveling cranes.",
+    img: EOTOperator,
+  },
+  {
+    title: "PTW Operator",
+    slug: "ptw-operator",
+    desc: "PTW Operator for industrial and construction sites.",
+    img: PTWOperator,
+  },
+  {
+    title: "Shearing Machine Operator",
+    slug: "shearing-operator",
+    desc: "Shearing machine operator for shearing machines.",
+    img: ShearingOperator,
+  },
+  {
+    title: "Oxygen Cutting Operator",
+    slug: "oxygen-cutting-operator",
+    desc: "Oxygen cutting operator for oxygen cutting machines.",
+    img: OxygenOperator,
+  },
+  {
+    title: "Laser Cutting Operator",
+    slug: "laser-cutting-operator",
+    desc: "Laser cutting operator for laser cutting machines.",
+    img: LaserOperator,
   },
   {
     title: "Helper",
