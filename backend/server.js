@@ -19,6 +19,7 @@ app.use(helmet());
 // CORS - restrict to known origins
 const allowedOrigins = [
   "http://localhost:3000",
+  "https://ammanpowerservice.vercel.app",
   process.env.FRONTEND_BASE,
 ].filter(Boolean);
 
@@ -136,7 +137,8 @@ async function connectDB() {
         {
           title: "House Keeping",
           slug: "house-keeping",
-          description: "House keeping staff for residential and commercial properties.",
+          description:
+            "House keeping staff for residential and commercial properties.",
           image: "/assets/house-keeping.webp",
         },
       ]);
