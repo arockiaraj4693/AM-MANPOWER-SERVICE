@@ -11,10 +11,14 @@ import AdminRegister from "../admin/Register";
 import AdminDashboard from "../admin/Dashboard";
 import AdminSupervisors from "../admin/Supervisors";
 import AdminAdmins from "../admin/Admins";
+import AdminPendingRequests from "../admin/PendingRequests";
+import AdminForgotPassword from "../admin/ForgotPassword";
+import AdminResetPassword from "../admin/ResetPassword";
+import AdminLogs from "../admin/Logs";
 
 export default function AnimatedRoutes() {
   const location = useLocation();
-  const nodeRef = useRef(null); // 👈 added
+  const nodeRef = useRef(null);
 
   return (
     <TransitionGroup component={null}>
@@ -23,9 +27,9 @@ export default function AnimatedRoutes() {
         classNames="page"
         timeout={450}
         unmountOnExit
-        nodeRef={nodeRef} // 👈 added
+        nodeRef={nodeRef}
       >
-        <div ref={nodeRef} className="page-wrapper"> {/* 👈 added */}
+        <div ref={nodeRef} className="page-wrapper">
           <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -37,6 +41,10 @@ export default function AnimatedRoutes() {
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/admin/supervisors" element={<AdminSupervisors />} />
             <Route path="/admin/admins" element={<AdminAdmins />} />
+            <Route path="/admin/pending" element={<AdminPendingRequests />} />
+            <Route path="/admin/forgot-password" element={<AdminForgotPassword />} />
+            <Route path="/admin/reset-password" element={<AdminResetPassword />} />
+            <Route path="/admin/logs" element={<AdminLogs />} />
           </Routes>
         </div>
       </CSSTransition>

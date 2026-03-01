@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 const API = import.meta.env.VITE_API_BASE || "http://localhost:5000";
 
-export default function Login() {
-  const [err, setErr] = useState("");
+export default function ForgotPassword() {
   const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState("");
+  const [token, setToken] = useState("");
   const nav = useNavigate();
 
   async function submit(e) {
@@ -13,20 +14,18 @@ export default function Login() {
     setLoading(true);
     setErr("");
     const f = new FormData(e.target);
-    const body = { username: f.get("username"), password: f.get("password") };
+    const username = f.get("username");
     try {
-      const res = await fetch(API + "/api/admin/login", {
+      const res = await fetch(API + "/api/admin/forgot-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
+        body: JSON.stringify({ username }),
       });
-      const data = await res.json();
-      if (data.ok) {
-        localStorage.setItem("am_admin_token", data.token);
-        localStorage.setItem("am_admin_role", data.role || "supervisor");
-        nav("/admin/dashboard");
+      const d = await res.json();
+      if (d.ok && d.token) {
+        setToken(d.token);
       } else {
-        setErr(data.error || "Login failed");
+        setErr(d.error || "User not found");
       }
     } catch {
       setErr("Server error. Please try again.");
@@ -34,26 +33,49 @@ export default function Login() {
     setLoading(false);
   }
 
+  if (token) {
+    return (
+      <div className="auth-card">
+        <h3>Reset Your Password</h3>
+        <p style={{ color: "#6b7280", fontSize: "0.9rem", marginBottom: "16px" }}>
+          Your reset token has been generated. Click below to reset your password.
+        </p>
+        <button
+          className="btn"
+          style={{
+            width: "100%",
+            background: "linear-gradient(90deg,#ff6b00,#ff8a2b)",
+            color: "#fff",
+            padding: "12px",
+          }}
+          onClick={() => nav("/admin/reset-password?token=" + token)}
+        >
+          Set New Password
+        </button>
+        <div style={{ marginTop: "14px", textAlign: "center" }}>
+          <button
+            style={{ background: "none", border: "none", color: "#6b7280", cursor: "pointer", fontSize: "0.88rem" }}
+            onClick={() => nav("/admin/login")}
+          >
+            Back to Login
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="auth-card">
-      <h3>Admin Login</h3>
+      <h3>Forgot Password</h3>
+      <p style={{ color: "#6b7280", fontSize: "0.9rem", marginBottom: "16px" }}>
+        Enter your username or email to get a password reset link.
+      </p>
       <form onSubmit={submit}>
         <div style={{ marginBottom: "12px" }}>
           <input
             name="username"
             placeholder="Email / Username"
             required
-            autoComplete="username"
-            style={{ width: "100%", padding: "10px", borderRadius: "8px", border: "1px solid #e6e9ee" }}
-          />
-        </div>
-        <div style={{ marginBottom: "12px" }}>
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            required
-            autoComplete="current-password"
             style={{ width: "100%", padding: "10px", borderRadius: "8px", border: "1px solid #e6e9ee" }}
           />
         </div>
@@ -68,10 +90,9 @@ export default function Login() {
             padding: "12px",
           }}
         >
-          {loading ? "Signing in..." : "Sign In"}
+          {loading ? "Checking..." : "Get Reset Link"}
         </button>
       </form>
-
       {err && (
         <div
           style={{
@@ -86,19 +107,12 @@ export default function Login() {
           {err}
         </div>
       )}
-
-      <div style={{ marginTop: "14px", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "8px" }}>
+      <div style={{ marginTop: "14px", textAlign: "center" }}>
         <button
           style={{ background: "none", border: "none", color: "#6b7280", cursor: "pointer", fontSize: "0.88rem" }}
-          onClick={() => nav("/admin/forgot-password")}
+          onClick={() => nav("/admin/login")}
         >
-          Forgot Password?
-        </button>
-        <button
-          style={{ background: "none", border: "none", color: "#ff6b00", cursor: "pointer", fontSize: "0.88rem" }}
-          onClick={() => nav("/admin/register")}
-        >
-          Request Access
+          Back to Login
         </button>
       </div>
     </div>

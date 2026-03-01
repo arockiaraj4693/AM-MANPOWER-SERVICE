@@ -9,9 +9,10 @@ const AdminSchema = new mongoose.Schema({
     enum: ["super", "admin", "supervisor"],
     default: "supervisor",
   },
-  // optional contact fields for supervisors/admins
   email: { type: String },
   phone: { type: String },
+  resetToken: { type: String },
+  resetTokenExpires: { type: Date },
   createdAt: { type: Date, default: Date.now },
 });
 
